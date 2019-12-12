@@ -8,6 +8,10 @@ if [[ $UID -ne 0 ]]; then
    exit 1
 fi
 
+echo 1 > /proc/sys/net/ipv4/ip_forward
+echo  "net.ipv4.ip_forward = 1"   >> /etc/sysctl.conf
+sysctl  -p
+
 setenforce 0
 sed -i 's/^SELINUX=.*/SELINUX=permissive/g' /etc/selinux/config
 
